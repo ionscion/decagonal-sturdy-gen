@@ -9,6 +9,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 const { Employee, Manager, Engineer, Intern } = require("./lib/class");
+const generateHtml = require("./src/generateHtml");
 
 function initInquirer() {
   inquirer
@@ -61,6 +62,8 @@ function initInquirer() {
         case "Employee":
           const employee = new Employee(name, id, email);
           console.log(`Employee class instantiated!`);
+          const htmlContents = generateHtml.genHtml(employee,employee.getRole());
+          writeToFile(htmlContents);
           break;
         case "Manager":
           const manager = new Manager(name, id, email);
