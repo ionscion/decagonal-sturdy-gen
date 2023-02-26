@@ -6,3 +6,14 @@
  * CSS stylesheet, may want to build this out ahead of time
  * write HTML to file, may want to use append in case more classes are added later
  */
+
+const { Employee, Manager, Engineer, Intern } = require('./lib/class');
+
+
+
+function init() {
+
+
+}
+
+init();
