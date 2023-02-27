@@ -21,18 +21,25 @@ function genHtml(teamMember, role) {
           </div>
         </div>
     
-        <div class="card" style="width: 18rem">
-          <div class="card-body">
-            <h4 class="card-title">${name}</h4>
-            <h5 class="card-title">${role}</h5>
+        <div class="container">
+          <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+            <div class="col mb-4">
+              <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                  <h4 class="card-title">${name}</h4>
+                  <h5 class="card-title">${role}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">${id}</li>
+                  <li class="list-group-item">${email}</li>
+                </ul>
+              </div>
+            </div>
+      
+            <!-- CARD_PLACEHOLDER -->
+        
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">${id}</li>
-            <li class="list-group-item">${email}</li>
-            <li class="list-group-item">A third item</li>
-          </ul>
         </div>
-        <!-- CARD_PLACEHOLDER -->
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
@@ -46,18 +53,19 @@ function genHtml(teamMember, role) {
 function generateNewCard(teamMember, role) {
   const { name, id, email } = teamMember;
   return `
-  <div class="card" style="width: 18rem">
-    <div class="card-body">
-      <h4 class="card-title">${name}</h4>
-      <h5 class="card-title">${role}</h5>
+  <div class="col mb-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h4 class="card-title">${name}</h4>
+                <h5 class="card-title">${role}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">${id}</li>
+                <li class="list-group-item">${email}</li>
+            </ul>
+        </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">${id}</li>
-      <li class="list-group-item">${email}</li>
-      <li class="list-group-item">A third item</li>
-    </ul>
-  </div>
-
+      
   <!-- CARD_PLACEHOLDER -->
   `;
 }
