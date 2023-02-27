@@ -1,5 +1,6 @@
 function genHtml(teamMember, role) {
   const { name, id, email } = teamMember;
+  const additionalInfo = additionalInformation(teamMember, role);
   return `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -32,6 +33,11 @@ function genHtml(teamMember, role) {
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">${id}</li>
                   <li class="list-group-item">${email}</li>
+                  ${
+                    additionalInfo
+                      ? `<li class="list-group-item">${additionalInfo}</li>`
+                      : ""
+                  }
                 </ul>
               </div>
             </div>
@@ -52,6 +58,7 @@ function genHtml(teamMember, role) {
 
 function generateNewCard(teamMember, role) {
   const { name, id, email } = teamMember;
+  const additionalInfo = additionalInformation(teamMember, role);
   return `
   <div class="col mb-4">
         <div class="card" style="width: 18rem;">
@@ -62,6 +69,11 @@ function generateNewCard(teamMember, role) {
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">${id}</li>
                 <li class="list-group-item">${email}</li>
+                ${
+                  additionalInfo
+                    ? `<li class="list-group-item">${additionalInfo}</li>`
+                    : ""
+                }
             </ul>
         </div>
     </div>
@@ -69,6 +81,28 @@ function generateNewCard(teamMember, role) {
   <!-- CARD_PLACEHOLDER -->
   `;
 }
+
+function additionalInformation(teamMember, role) {
+  let additionalInfo = "";
+  switch (role) {
+    case "Manager":
+      additionalInfo = `Office Number: ${teamMember.officeNumber}`;
+      break;
+    case "Engineer":
+      additionalInfo = `GitHub: <a href="https://github.com/${teamMember.github}" target="_blank">${teamMember.github}</a>`;
+      break;
+    case "Intern":
+      additionalInfo = `School: ${teamMember.school}`;
+      break;
+    case "Employee":
+      additionalInfo = "";
+      break;
+    default:
+      break;
+  }
+  return additionalInfo;
+}
+
 module.exports = {
   genHtml: genHtml,
   generateNewCard: generateNewCard,
