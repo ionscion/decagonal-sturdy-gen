@@ -1,6 +1,6 @@
 function genHtml(teamMember, role) {
-    const { name, id, email} = teamMember;
-    return `<!DOCTYPE html>
+  const { name, id, email } = teamMember;
+  return `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
@@ -32,6 +32,7 @@ function genHtml(teamMember, role) {
             <li class="list-group-item">A third item</li>
           </ul>
         </div>
+        <!-- CARD_PLACEHOLDER -->
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
@@ -42,6 +43,25 @@ function genHtml(teamMember, role) {
     `;
 }
 
+function generateNewCard(teamMember, role) {
+  const { name, id, email } = teamMember;
+  return `
+  <div class="card" style="width: 18rem">
+    <div class="card-body">
+      <h4 class="card-title">${name}</h4>
+      <h5 class="card-title">${role}</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">${id}</li>
+      <li class="list-group-item">${email}</li>
+      <li class="list-group-item">A third item</li>
+    </ul>
+  </div>
+
+  <!-- CARD_PLACEHOLDER -->
+  `;
+}
 module.exports = {
   genHtml: genHtml,
+  generateNewCard: generateNewCard,
 };
