@@ -82,6 +82,7 @@ async function initInquirer() {
             },
           ]);
           const engineer = new Engineer(engineerName, engId, engEmail, github);
+          console.log(`engineer instantiated ${engineer}`);
           team.push(engineer);
           break;
         case "intern":
@@ -116,7 +117,7 @@ async function initInquirer() {
       }
     }
   
-    const html = generateHtml.genHtml(manager, manager.getRole());
+    const html = generateHtml.genHtml(team);
     writeToFile(html);
   }
   
