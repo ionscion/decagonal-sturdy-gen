@@ -12,89 +12,116 @@ const { Employee, Manager, Engineer, Intern } = require("./lib/class");
 const generateHtml = require("./src/generateHtml");
 const generateNewCard = require("./src/generateHtml");
 
-function initInquirer() {
-  inquirer
-    .prompt([
+async function initInquirer() {
+    const team = [];
+  
+    const { name, id, email, officeNumber } = await inquirer.prompt([
       {
         type: "input",
         name: "name",
-        message: "What is the team member's name?",
+        message: "What is the team manager's name?",
       },
       {
         type: "input",
         name: "id",
-        message: "What is team member's employee id number?",
+        message: "What is the team manager's employee ID?",
       },
       {
         type: "input",
         name: "email",
-        message: "What is team member's email address?",
-      },
-      {
-        type: "list",
-        name: "role",
-        message: "What is team member's role at the company?",
-        choices: ["Employee", "Manager", "Engineer", "Intern"],
+        message: "What is the team manager's email address?",
       },
       {
         type: "input",
         name: "officeNumber",
-        message: "What is the manager's office number?",
-        when: (answers) => answers.role === "Manager",
+        message: "What is the team manager's office number?",
       },
-      {
-        type: "input",
-        name: "github",
-        message: "What is the engineer's GitHub username?",
-        when: (answers) => answers.role === "Engineer",
-      },
-      {
-        type: "input",
-        name: "school",
-        message: "What is the intern's school name?",
-        when: (answers) => answers.role === "Intern",
-      },
-    ])
-    .then((answers) => {
-      const { name, id, email, role } = answers;
-      console.log(answers);
-
-      switch (role) {
-        case "Employee":
-          const employee = new Employee(name, id, email);
-          console.log(`Employee class instantiated!`);
-          const employeeContents = generateHtml.genHtml(
-            employee,
-            employee.getRole()
-          );
-          writeToFile(employee, employeeContents);
+    ]);
+  
+    const manager = new Manager(name, id, email, officeNumber);
+    team.push(manager);
+  
+    let done = false;
+  
+    while (!done) {
+      const { option } = await inquirer.prompt([
+        {
+          type: "list",
+          name: "option",
+          message: "What would you like to do?",
+          choices: [
+            { name: "Add an engineer", value: "engineer" },
+            { name: "Add an intern", value: "intern" },
+            { name: "Finish building my team", value: "finish" },
+          ],
+        },
+      ]);
+  
+      switch (option) {
+        case "engineer":
+          const { engineerName, engId, engEmail, github } = await inquirer.prompt([
+            {
+              type: "input",
+              name: "name",
+              message: "What is the engineer's name?",
+            },
+            {
+              type: "input",
+              name: "id",
+              message: "What is the engineer's employee ID?",
+            },
+            {
+              type: "input",
+              name: "email",
+              message: "What is the engineer's email address?",
+            },
+            {
+              type: "input",
+              name: "github",
+              message: "What is the engineer's GitHub username?",
+            },
+          ]);
+          const engineer = new Engineer(engineerName, engId, engEmail, github);
+          team.push(engineer);
           break;
-        case "Manager":
-          const manager = new Manager(name, id, email);
-          console.log(`Manager class instantiated!`);
-          const managerHtml = generateHtml.genHtml(manager, manager.getRole());
-          writeToFile(manager, managerHtml);
+        case "intern":
+          const { name, id, email, school } = await inquirer.prompt([
+            {
+              type: "input",
+              name: "name",
+              message: "What is the intern's name?",
+            },
+            {
+              type: "input",
+              name: "id",
+              message: "What is the intern's employee ID?",
+            },
+            {
+              type: "input",
+              name: "email",
+              message: "What is the intern's email address?",
+            },
+            {
+              type: "input",
+              name: "school",
+              message: "What school does the intern attend?",
+            },
+          ]);
+          const intern = new Intern(name, id, email, school);
+          team.push(intern);
           break;
-        case "Engineer":
-          const engineer = new Engineer(name, id, email);
-          console.log(`Engineer class instantiated!`);
-          const engineerHtml = generateHtml.genHtml(
-            engineer,
-            engineer.getRole()
-          );
-          writeToFile(engineer, engineerHtml);
-          break;
-        case "Intern":
-          const intern = new Intern(name, id, email);
-          console.log(`Intern class instantiated!`);
-          const internHtml = generateHtml.genHtml(intern, intern.getRole());
-          writeToFile(intern, internHtml);
+        case "finish":
+          done = true;
           break;
       }
-    });
-}
+    }
+  
+    const html = generateHtml.genHtml(manager, manager.getRole());
+    writeToFile(html);
+  }
+  
 
-function writeToFile(teamMember, data) {
+function writeToFile(data) {
     fs.readFile("dist/index.html","utf8", (err, existingContents) => {
         if (err) {
           // if the file does not exist, just write the data as a new file

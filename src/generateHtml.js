@@ -1,5 +1,6 @@
+
 function genHtml(teamMember, role) {
-  const { name, id, email } = teamMember;
+  const {name , id, email, officeNumber} = teamMember;
   const additionalInfo = additionalInformation(teamMember, role);
   return `<!DOCTYPE html>
     <html lang="en">
@@ -92,7 +93,7 @@ function additionalInformation(teamMember, role) {
       additionalInfo = `GitHub: <a href="https://github.com/${teamMember.github}" target="_blank">${teamMember.github}</a>`;
       break;
     case "Intern":
-      additionalInfo = `School: ${teamMember.school}`;
+      additionalInfo = `School: ${teamMember.getSchool()}`;
       break;
     case "Employee":
       additionalInfo = "";
