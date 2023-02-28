@@ -26,7 +26,7 @@ function genHtml(team) {
     `;
   
     for (const teamMember of team) {
-      const { name, id, email, officeNumber } = teamMember;
+      const { name, id, email} = teamMember;
       const role = teamMember.getRole();
       const additionalInfo = additionalInformation(teamMember, role);
   
