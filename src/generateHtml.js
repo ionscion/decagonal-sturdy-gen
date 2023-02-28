@@ -57,7 +57,7 @@ function genHtml(team) {
   
 
 function generateNewCard(teamMember, role) {
-  const { name, id, email } = teamMember;
+  const { name, id, email} = teamMember;
   const additionalInfo = additionalInformation(teamMember, role);
   return `
   <div class="col mb-4">

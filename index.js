@@ -62,17 +62,17 @@ async function initInquirer() {
           const { engineerName, engId, engEmail, github } = await inquirer.prompt([
             {
               type: "input",
-              name: "name",
+              name: "engineerName",
               message: "What is the engineer's name?",
             },
             {
               type: "input",
-              name: "id",
+              name: "engId",
               message: "What is the engineer's employee ID?",
             },
             {
               type: "input",
-              name: "email",
+              name: "engEmail",
               message: "What is the engineer's email address?",
             },
             {
