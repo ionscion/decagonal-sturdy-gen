@@ -1,11 +1,3 @@
-/**
- * Build out classes - done
- * Need to build out inquirer prompts - done
- * similar to last homework, collect answers for each class invoked - done
- * Compile all the answers to template literal for the html- done
- * CSS stylesheet, may want to build this out ahead of time
- * write HTML to file, may want to use append in case more classes are added later
- */
 const inquirer = require("inquirer");
 const fs = require("fs");
 const { Employee, Manager, Engineer, Intern } = require("./lib/class");
@@ -116,29 +108,41 @@ async function initInquirer() {
           break;
       }
     }
-  
+    team.forEach(member => {
+      console.log(member);
+    })
     const html = generateHtml.genHtml(team);
     writeToFile(html);
   }
   
 
+// function writeToFile(data) {
+//     fs.readFile("dist/index.html","utf8", (err, existingContents) => {
+//         if (err) {
+//           // if the file does not exist, just write the data as a new file
+//           fs.writeFile("dist/index.html", data, (err) => {
+//             if (err) {
+//               console.error(err);
+//             } else {
+//               console.log("index.html created successfully!");
+//             }
+//           });
+//         } else {
+//             const newCardHtml = generateNewCard.generateNewCard(teamMember, teamMember.getRole());
+//             const updatedContents = existingContents.replace("<!-- CARD_PLACEHOLDER -->", newCardHtml);
+//             fs.writeFileSync("dist/index.html", updatedContents);
+//         }
+// });
+// }
+
 function writeToFile(data) {
-    fs.readFile("dist/index.html","utf8", (err, existingContents) => {
-        if (err) {
-          // if the file does not exist, just write the data as a new file
-          fs.writeFile("dist/index.html", data, (err) => {
-            if (err) {
-              console.error(err);
-            } else {
-              console.log("index.html created successfully!");
-            }
-          });
-        } else {
-            const newCardHtml = generateNewCard.generateNewCard(teamMember, teamMember.getRole());
-            const updatedContents = existingContents.replace("<!-- CARD_PLACEHOLDER -->", newCardHtml);
-            fs.writeFileSync("dist/index.html", updatedContents);
-        }
-});
+  fs.writeFile("dist/index.html", data, { flag: "w" }, (err) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("Generated index.html successfully!");
+    }
+  });
 }
 
 initInquirer();
